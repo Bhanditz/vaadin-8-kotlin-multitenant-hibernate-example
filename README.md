@@ -1,4 +1,4 @@
-Multitancy with Hibernate, Postgres, Vaadin 8 & Kotlin
+Multitenancy with Hibernate, Postgres, Vaadin 8 & Kotlin
 =============================
 
 
