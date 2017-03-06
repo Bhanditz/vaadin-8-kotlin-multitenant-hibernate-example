@@ -1,0 +1,8 @@
+*.iml
+.idea
+target
+**/target
+playbook.retry
+**/src/main/generated
+
+**/src/main/webapp/**/styles.css

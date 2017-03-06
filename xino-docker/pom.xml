@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>docker</artifactId>
+    <groupId>de.eiswind</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.15.16</version>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <phase>pre-clean</phase>
+                        <goals>
+
+                            <goal>build</goal>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>eiswind/postgresql:9.6</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}/../docker</dockerFileDir>
+                            </build>
+                            <run>
+                                <ports>5433:5432</ports>
+
+                            </run>
+
+                        </image>
+                    </images>
+                </configuration>
+
+            </plugin>
+        </plugins>
+    </build>
+</project>

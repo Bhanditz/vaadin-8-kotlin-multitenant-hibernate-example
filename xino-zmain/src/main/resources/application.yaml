@@ -1,0 +1,88 @@
+spring:
+  main:
+    banner-mode: "off"
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+## jpaproperties are set in PersistenceJPAConfig!!
+
+management:
+  context-path: /actuator
+  port: 8081
+
+vaadin:
+  servlet:
+    productionMode: true
+    url-mapping: /app/*
+    heartbeat-interval: 60
+    close-idle-sessions: false
+
+logging:
+  level:
+    root: INFO
+    com.vaadin.spring: WARN
+    com.vaadin.spring.internal: ERROR
+    org.vaadin.spring: WARN
+    org.hibernate.cache: WARN
+    org.apache.http: WARN
+
+
+
+---
+spring:
+  profiles: default
+
+eiswind:
+  masterds:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost/xino3
+    username: xino3
+    password: thomas
+
+
+liquibase:
+  changeLog: classpath:/changelog/master/changelog-master.xml
+  url: jdbc:postgresql://localhost/xino3
+  user: xino3
+  password: xino3
+
+---
+spring:
+  profiles: test
+
+
+eiswind:
+  masterds:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/xino3_test_db
+    username: xino3
+    password: xino3
+    proxy : true
+
+
+liquibase:
+  changeLog: classpath:/changelog/master/changelog-master.xml
+  url: jdbc:postgresql://localhost:5433/xino3_test_db
+  user: xino3
+  password: xino3
+
+server:
+  port: 8290
+
+
+
+
+
+---
+spring:
+  profiles: greenmail
+eiswind:
+  mail:
+    host: localhost
+    user: thomas@eiswind.de
+    password: thomas@eiswind.de
+    port: 3465
+    auth: true
+    socketFactoryPort: 3465
+    socketFactoryClass: com.icegreen.greenmail.util.DummySSLSocketFactory
+    starttlsEnable: true

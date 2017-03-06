@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+
+    <changeSet author="thomas" id="${db.schema}-insert-admin-user">
+
+
+        <sql>
+            INSERT INTO ${db.schema}.USER_USER (
+            id
+            ,version
+            ,active
+            ,tenant
+            ,email
+            ,first_name
+            ,last_name
+            ,password
+            ,creation_date
+            ,last_modification_date
+            ,last_modification_by
+            ,permissions )
+
+            SELECT
+            nextval('seq_user_user')
+            , 0
+            , true
+            , '${db.schema}'
+            , email
+            , first_name
+            , last_name
+            , password
+            , current_timestamp
+            , current_timestamp
+            , 'system'
+            , '["USER", "ADMIN"]'
+            FROM MASTER.USER_TENANT WHERE NAME='${db.schema}'
+
+
+
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>

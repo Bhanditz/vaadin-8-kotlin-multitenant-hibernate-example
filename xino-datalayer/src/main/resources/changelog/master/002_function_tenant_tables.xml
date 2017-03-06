@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+
+
+    <changeSet author="thomas" id="2016080815371" dbms="postgresql">
+        <sql>
+            DROP FUNCTION IF EXISTS create_tenant_tables(schem VARCHAR(255), owner VARCHAR(255));
+        </sql>
+    </changeSet>
+    <changeSet author="thomas" id="2016080815372" dbms="postgresql">
+        <createProcedure>
+            CREATE OR REPLACE FUNCTION create_tenant_tables(schem VARCHAR(255), owner VARCHAR(255)) RETURNS INTEGER AS $$
+            DECLARE
+            rec RECORD;
+            trec RECORD;
+            sourcetable VARCHAR(255);
+            desttable VARCHAR(255);
+            cnt INTEGER =0;
+            BEGIN
+
+            FOR rec IN
+            SELECT *
+            FROM pg_tables
+            WHERE schemaname = 'master'
+            AND NOT(tablename = 'user_tenant')
+            ORDER BY tablename
+            LOOP
+
+            cnt := cnt +1;
+            sourcetable := 'master.' || rec.tablename;
+            desttable := schem || '.' || rec.tablename;
+            EXECUTE 'CREATE TABLE ' || desttable || ' () INHERITS (' ||sourcetable ||')';
+            EXECUTE 'ALTER TABLE '||desttable||' OWNER TO '|| owner;
+            EXECUTE 'CREATE SEQUENCE '|| schem || '.seq_' || rec.tablename;
+            EXECUTE 'ALTER SEQUENCE '|| schem || '.seq_' || rec.tablename ||' OWNER TO '||owner;
+            END LOOP;
+
+            FOR trec IN
+            SELECT *
+            FROM information_schema.columns
+            WHERE table_schema = schem
+            AND column_name = 'tenant'
+            LOOP
+
+            EXECUTE 'ALTER TABLE '|| schem||'.'||trec.table_name||' ADD CONSTRAINT "check_tenant_' || trec.table_name ||'" CHECK(tenant ='''|| schem ||''')';
+            END LOOP;
+            RETURN cnt;
+            END;
+            $$ LANGUAGE plpgsql;
+        </createProcedure>
+
+    </changeSet>
+
+    <changeSet author="thomas" id="201702101214" dbms="postgresql">
+        <createProcedure>
+            CREATE OR REPLACE FUNCTION switch_tenant(tenant VARCHAR(255)) RETURNS VARCHAR(255) AS $$
+            BEGIN
+            RESET SESSION AUTHORIZATION;
+            EXECUTE 'SET SESSION AUTHORIZATION ' || tenant;
+            EXECUTE 'SET search_path TO ' || tenant;
+            return tenant;
+            END;
+            $$ LANGUAGE plpgsql;
+        </createProcedure>
+
+    </changeSet>
+
+</databaseChangeLog>

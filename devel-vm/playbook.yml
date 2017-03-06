@@ -1,0 +1,45 @@
+---
+- hosts: all
+
+
+  tasks:
+
+    - name: add postgres repository
+      apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main' state=present
+      become: true
+    - name: add repo key
+      apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc state=present validate_certs=no
+      become: true
+    - name: update apt cache
+      apt: update_cache=yes
+      become: true
+
+    - name: install required packages
+      apt: name={{ item }} state=present
+      with_items:
+        - aptitude
+        - python-psycopg2
+        - postgresql-9.5
+        - postgresql-contrib-9.5
+        - vim
+      become: true
+
+
+
+    - name: copy postgresql config
+      copy: src=config/postgresql.conf dest=/etc/postgresql/9.5/main/postgresql.conf owner=postgres group=postgres
+      become: true
+    - name: copy postgresql hba config
+      copy: src=config/pg_hba.conf dest=/etc/postgresql/9.5/main/pg_hba.conf owner=postgres group=postgres
+      become: true
+    - name: restart postgresql
+      service: name=postgresql state=restarted
+      become: true
+    - name: create  postgres user
+      postgresql_user: name=xino3 password=xino3 role_attr_flags=SUPERUSER
+      become_user: postgres
+      become: true
+    - name: create test db
+      postgresql_db: name=xino3 owner=xino3
+      become_user: postgres
+      become: true

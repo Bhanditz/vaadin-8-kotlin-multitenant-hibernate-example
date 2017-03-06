@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomas" id="201808101347">
+        <insert tableName="user_tenant" schemaName="master">
+            <column name="id" valueComputed="nextval('master.seq_user_tenant')"/>
+            <column name="version">0</column>
+            <column name="creation_date" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="last_modification_date" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="name">demo</column>
+            <column name="active">true</column>
+            <column name="email">demo@eiswind.de</column>
+            <!-- demo BCrypt-->
+            <column name="password">$2a$10$Bbnd2cfW3kdsmocUHI6bQe2.kKpCxt9vSvzY5dYikHcWXfsAQu2i6
+            </column>
+            <column name="db_user">demo</column>
+            <column name="first_name">demo</column>
+            <column name="last_name">demo</column>
+            <column name="street">demo</column>
+            <column name="zipcode">00000</column>
+            <column name="city">demo</column>
+            <column name="phone">demo</column>
+            <!-- h4KLSVR2zGrxfSmW -->
+            <column name="db_password">VZlM+epuGWFMwr4uxDGC0PH+rRQzMQSJ2U9cjHY1nzE=
+            </column> <!-- BASE64 AES with user pass -->
+        </insert>
+    </changeSet>
+</databaseChangeLog>

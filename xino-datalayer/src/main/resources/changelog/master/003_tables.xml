@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+
+    <changeSet author="thomas" id="${db.schema}-create-user-table">
+        <createSequence
+                schemaName="${db.schema}"
+                sequenceName="seq_user_user"
+                startValue="1"/>
+
+        <createTable tableName="user_user" schemaName="${db.schema}">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modification_date" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modification_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tenant" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permissions" type="JSONB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_reset_token" type="UUID"/>
+
+            <column name="password_reset_token_valid_until_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="thomas" id="${db.schema}-2016_09_11_02">
+        <addPrimaryKey columnNames="id" constraintName="user_pkey"
+                       schemaName="${db.schema}" tableName="user_user"/>
+    </changeSet>
+
+    <changeSet author="thomas" id="${db.schema}-create-tenant-user-index">
+        <createIndex indexName="idx_user_tenant_user"
+                     schemaName="${db.schema}"
+                     tableName="user_user"
+
+                     unique="true">
+            <column name="tenant"/>
+            <column name="email"/>
+        </createIndex>
+    </changeSet>
+
+
+    <changeSet author="thomas" id="${db.schema}-user-tenant-table-constraints">
+        <addUniqueConstraint tableName="user_user" columnNames="email" schemaName="${db.schema}"/>
+    </changeSet>
+
+
+    <changeSet author="thomas" id="${db.schema}-create-tenant-table">
+
+        <createSequence
+                schemaName="${db.schema}"
+                sequenceName="seq_user_tenant"
+                startValue="1"/>
+
+        <createTable schemaName="${db.schema}" tableName="user_tenant">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modification_date" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zipcode" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+
+            <column name="db_user" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="db_password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="creation_token" type="UUID"/>
+
+            <column name="creation_token_valid_until_date" type="TIMESTAMP WITH TIME ZONE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="thomas" id="${db.schema}-2016_09_11_01">
+        <addPrimaryKey columnNames="id" constraintName="tenant_pkey"
+                       schemaName="${db.schema}" tableName="user_tenant"/>
+    </changeSet>
+
+    <changeSet author="thomas" id="${db.schema}-tenant-table-constraints">
+        <addUniqueConstraint tableName="user_tenant" columnNames="name" schemaName="${db.schema}"/>
+    </changeSet>
+
+</databaseChangeLog>

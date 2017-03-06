@@ -1,0 +1,69 @@
+@mixin plainview-plainview-view {
+
+  .plain-view.plain-view {
+    padding: $view-padding;
+    overflow: visible;
+
+    .sparks {
+      @include valo-panel-style;
+      margin-bottom: round($view-padding / 3);
+
+      @include width-range($max: 680px) {
+        .spark {
+          width: 50%;
+        }
+        .spark:nth-child(2n+1) {
+          border-left: none;
+        }
+        .spark:nth-child(n+3) {
+          border-top: valo-border($strength: 0.3);
+        }
+      }
+
+      @include width-range($max: 270px) {
+        .spark {
+          width: 100%;
+          border-left: none;
+          border-top: valo-border($strength: 0.3);
+
+          &:first-child {
+            border-top: none;
+          }
+        }
+      }
+    }
+
+    .spark {
+      float: left;
+      text-align: center;
+      width: 25%;
+      padding: $v-layout-spacing-vertical $v-layout-spacing-horizontal;
+      border-left: valo-border($strength: 0.3);
+      line-height: 1.35;
+
+      > tbody {
+        display: inline-block;
+      }
+
+      &:first-child {
+        border-left: none;
+      }
+    }
+
+  }
+
+  .plain-view {
+    @include width-range($max: 480px) {
+      padding-left: round($view-padding / 2);
+      padding-right: round($view-padding / 2);
+    }
+  }
+
+  // Need to use normal media queries because Responsive doesn't work for overlay elements just yet
+  @media screen and (max-width: 480px) {
+    .notifications.v-window {
+      right: round($view-padding / 2);
+    }
+  }
+
+}

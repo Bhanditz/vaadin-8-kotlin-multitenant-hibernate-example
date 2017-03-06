@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+    <changeSet author="thomas" id="public-create-master-schema" >
+        <sql>
+            create schema "master" ;
+        </sql>
+    </changeSet>
+    <!--<changeSet author="thomas" id="public-revoke-all" >-->
+    <!--<sql>-->
+    <!--&#45;&#45;REVOKE ALL ON schema public FROM public;-->
+    <!--</sql>-->
+    <!--</changeSet>-->
+    <changeSet id="create-pgcrypto extension" author="thomas">
+        <sql>
+            CREATE EXTENSION pgcrypto;
+        </sql>
+    </changeSet>
+</databaseChangeLog>
