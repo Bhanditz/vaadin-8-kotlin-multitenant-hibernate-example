@@ -12,5 +12,8 @@ The example app allows you to register for an account, login and has a simple us
 
 There are examples for mapping Pojos to Postgres JSON Columns for Hibernate and JOOQ inside.
 
+There is a docker postgres image included. 
+
+Run it with docker run -p5433:5432 eiswind/postgresql:9.6 to execute the Integration Tests or just to try the app.
 
 
