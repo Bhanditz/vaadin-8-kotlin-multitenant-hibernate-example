@@ -42,7 +42,7 @@ class ConfirmLostPasswordView constructor(private val userManagementService: Use
 
         val passwordBean = LostPasswordBean()
 
-        val binder = BeanBinder<LostPasswordBean>(LostPasswordBean::class.java)
+        val binder = Binder<LostPasswordBean>(LostPasswordBean::class.java)
 
 
         binder.forField(passwordField).withValidator(StringLengthValidator(PASSWORD_REQUIRED, 1, 100))

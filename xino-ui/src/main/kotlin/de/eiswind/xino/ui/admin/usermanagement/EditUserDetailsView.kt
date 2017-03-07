@@ -35,9 +35,9 @@ class EditUserDetailsView constructor(private val userRepository: UserRepository
 
     private val passwordField = PasswordField("Password")
     private val passwordMatchField = PasswordField("Retype password")
-    private val userBeanBinder = BeanBinder<User>(User::class.java)
+    private val userBeanBinder = Binder<User>(User::class.java)
     private val passwordBean = PasswordBean()
-    private val passBeanBinder = BeanBinder<PasswordBean>(PasswordBean::class.java)
+    private val passBeanBinder = Binder<PasswordBean>(PasswordBean::class.java)
 
     private val userNameField = TextField("Email")
     private lateinit var user: User

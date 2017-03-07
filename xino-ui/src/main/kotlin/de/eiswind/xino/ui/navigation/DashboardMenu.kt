@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe
 import com.vaadin.server.FontAwesome
 import com.vaadin.server.ThemeResource
 import com.vaadin.server.VaadinSession
-import com.vaadin.shared.ui.label.ContentMode
+import com.vaadin.shared.ui.ContentMode
 import com.vaadin.spring.annotation.UIScope
 import com.vaadin.ui.*
 import com.vaadin.ui.MenuBar.MenuItem

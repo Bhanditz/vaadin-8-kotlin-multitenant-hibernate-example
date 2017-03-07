@@ -12,19 +12,19 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.4.RELEASE</version>
+        <version>1.5.2.RELEASE</version>
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
 
     <properties>
-        <spring.boot.version>1.4.4.RELEASE</spring.boot.version>
-        <vaadin.version>8.0.0.beta1</vaadin.version>
+        <spring.boot.version>1.5.2.RELEASE</spring.boot.version>
+        <vaadin.version>8.0.1</vaadin.version>
         <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-        <vaadin.spring.version>2.0-SNAPSHOT</vaadin.spring.version>
+        <vaadin.spring.version>2.0.0</vaadin.spring.version>
         <vaadin.security.version>0.0.7.RELEASE</vaadin.security.version>
 
-        <kotlin.version>1.0.6</kotlin.version>
+        <kotlin.version>1.1.0</kotlin.version>
 
         <postgres.driver.version>9.4.1210</postgres.driver.version>
         <liquibase.version>3.5.1</liquibase.version>

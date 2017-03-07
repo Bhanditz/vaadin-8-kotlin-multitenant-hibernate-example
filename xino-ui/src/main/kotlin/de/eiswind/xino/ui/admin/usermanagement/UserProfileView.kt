@@ -55,7 +55,7 @@ class UserProfileView constructor(private val userRepository: UserRepository,
 
         val item = ProfilePasswordBean()
 
-        val binder = BeanBinder<ProfilePasswordBean>(ProfilePasswordBean::class.java)
+        val binder = Binder<ProfilePasswordBean>(ProfilePasswordBean::class.java)
 
         binder.forField(currentPasswordField)
                 .withValidator(CorrectPasswordValidator())

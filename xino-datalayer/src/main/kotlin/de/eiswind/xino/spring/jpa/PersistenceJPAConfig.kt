@@ -18,6 +18,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.orm.jpa.JpaVendorAdapter
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
+import org.springframework.orm.jpa.vendor.Database
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import java.util.*
@@ -39,16 +41,13 @@ open class PersistenceJPAConfig {
         return LoggerFactory.getLogger(ip.member.declaringClass)
     }
 
-//    @Bean
-//    open fun postgresAdapter(): JpaVendorAdapter {
-//        val adapter = HibernateJpaVendorAdapter()
-//        adapter.setDatabase(Database.POSTGRESQL)
-//        adapter.jpaDialect.setPrepareConnection(false)
-//        //        adapter.setGenerateDdl(true);
-////        adapter.setShowSql(false)
-//
-//        return adapter
-//    }
+    @Bean
+    open fun postgresAdapter(): JpaVendorAdapter {
+        val adapter = HibernateJpaVendorAdapter()
+        adapter.setDatabase(Database.POSTGRESQL)
+        adapter.jpaDialect.setPrepareConnection(false)
+        return adapter
+    }
 
 
 

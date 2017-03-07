@@ -88,7 +88,7 @@ class RequestSignupView constructor(private val userManagementService: UserManag
 
         val form = FormLayout()
         form.setSizeUndefined()
-        val binder = BeanBinder<RequestSignupBean>(RequestSignupBean::class.java)
+        val binder = Binder<RequestSignupBean>(RequestSignupBean::class.java)
         binder.forField(userNameField)
                 .withValidator(UserNameUniqueValidatorV8(userDetailsService))
                 .bind(RequestSignupBean::email)
