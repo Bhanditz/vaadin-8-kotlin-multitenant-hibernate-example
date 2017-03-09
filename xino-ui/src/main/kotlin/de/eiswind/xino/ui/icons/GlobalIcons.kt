@@ -2,6 +2,7 @@ package de.eiswind.xino.ui.icons
 
 import com.vaadin.icons.VaadinIcons
 
+
 /**
  * Created by thomas on 19.05.16.
  */

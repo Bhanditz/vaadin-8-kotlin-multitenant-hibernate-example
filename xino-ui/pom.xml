@@ -30,7 +30,11 @@
             <artifactId>vaadin-spring</artifactId>
             <version>${vaadin.spring.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-icons</artifactId>
+            <version>3.0.1</version>
+        </dependency>
         <dependency>
             <groupId>de.eiswind.xino3</groupId>
             <artifactId>xino-datalayer</artifactId>

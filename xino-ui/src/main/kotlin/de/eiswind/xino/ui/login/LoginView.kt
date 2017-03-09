@@ -1,7 +1,6 @@
 package de.eiswind.xino.ui.login
 
 import com.vaadin.event.ShortcutAction.KeyCode
-import com.vaadin.icons.VaadinIcons
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent
 import com.vaadin.server.Responsive
@@ -67,7 +66,7 @@ class LoginView constructor(private val security: VaadinSharedSecurity,
 
 
         with(username) {
-            icon = VaadinIcons.USER
+            icon = GlobalIcons.USER
             id = USERNAME_TEXT_FIELD
         }
         with(password) {

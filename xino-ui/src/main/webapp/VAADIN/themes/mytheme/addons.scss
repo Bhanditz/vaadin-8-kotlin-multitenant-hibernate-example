@@ -2,7 +2,11 @@
 /* Do not manually edit this file. */
 
 /* Import and include this mixin into your project theme to include the addon themes */
+@import "../../addons/vaadin-icons/vaadin-icons.scss";
+
 @mixin addons {
+  @include vaadin-icons;
+
   .v-caption-inline-icon img.v-icon {
     bottom: 7px;
   }
